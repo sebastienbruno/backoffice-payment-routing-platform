@@ -4,14 +4,14 @@
     "build": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "./mvnw clean package -DskipTests",
+        "command": "chmod +x mvnw && ./mvnw clean package -DskipTests",
         "cwd": "apps/message-ingest-service"
       }
     },
     "serve": {
       "executor": "nx:run-commands",
       "options": {
-        "command": "./mvnw spring-boot:run",
+        "command": "chmod +x mvnw && ./mvnw spring-boot:run",
         "cwd": "apps/message-ingest-service"
       }
     }

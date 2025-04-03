@@ -84,6 +84,10 @@
         "staticFilePath": "dist/apps/backoffice-payment-frontend/browser",
         "spa": true
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/backoffice-payment-frontend/Dockerfile . -t backoffice-payment-frontend"
     }
   }
 }

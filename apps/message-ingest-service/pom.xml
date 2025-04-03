@@ -52,6 +52,7 @@
 	</dependencies>
 
 	<build>
+    <directory>${project.basedir}/../../dist/apps/message-ingest-service</directory>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

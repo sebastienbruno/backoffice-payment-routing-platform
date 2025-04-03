@@ -11,6 +11,22 @@ services:
       - LICENSE=accept
       - MQ_QMGR_NAME=QM1
 
+  message-api-service:
+    image: message-api-service
+    container_name: message-api-service
+    volumes:
+      - ./volumes/h2:/data/h2
+    environment:
+      - H2_DB_PATH:/data/h2/bo-payment-routing-plateform
+      - IBM_MQ_CONN_NAME:ibmmq
+    build:
+      context: .
+      dockerfile: apps/message-api-service/Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - ibmmq
+
   backoffice-payment-frontend:
     image: backoffice-payment-frontend
     container_name: backoffice-payment-frontend
@@ -21,17 +37,3 @@ services:
       - "4200:80"
     depends_on:
       - message-api-service
-
-  message-api-service:
-    image: message-api-service
-    container_name: message-api-service
-    volumes:
-      - ./volumes/h2:/data/h2
-    environment:
-      - H2_DB_PATH:/data/h2/bo-payment-routing-plateform
-    build:
-      context: .
-      dockerfile: apps/message-api-service/Dockerfile
-    ports:
-      - "8080:8080"
-

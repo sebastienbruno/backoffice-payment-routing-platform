@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MessageApiServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MessageApiServiceApplication.class, args);
-	}
+    SpringApplication.run(MessageApiServiceApplication.class, args);
+  }
 
 }

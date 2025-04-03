@@ -1,18 +1,16 @@
 -- Insert or update messages
-MERGE INTO message (id, sender, payload, received_at)
+MERGE INTO message (id, sender, payload)
 KEY (id)
 VALUES
   (
     1,
     'CoreBankingSystem',
-    'PAYMENT|REF:12345|AMOUNT:100.00|CURRENCY:EUR',
-    '2025-04-02T10:15:00'
+    'PAYMENT|REF:12345|AMOUNT:100.00|CURRENCY:EUR'
   ),
   (
     2,
     'TradingApp',
-    'ALERT|LEVEL:HIGH|TIMESTAMP:2025-04-02T11:30:00',
-    '2025-04-02T11:30:00'
+    'ALERT|LEVEL:HIGH|TIMESTAMP:2025-04-02T11:30:00'
   );
 
 -- Insert or update message recipients

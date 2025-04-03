@@ -9,6 +9,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
+import jakarta.persistence.SequenceGenerator;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,14 +20,17 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "message")
 public class Message {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @SequenceGenerator(name = "message_seq", sequenceName = "message_seq", initialValue = 100, allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_seq")
   private Long id;
 
   /**
    * Logical sender of the message (e.g., alias, partner name, or system ID)
    */
+  @Column(nullable = false)
   private String sender;
 
   /**
@@ -40,10 +45,7 @@ public class Message {
    * Raw message payload (XML, JSON, etc.)
    */
   @Lob
+  @Column(nullable = false, length = 65535) // 64 KB
   private String payload;
 
-  /**
-   * Timestamp when the message was received
-   */
-  private LocalDateTime receivedAt;
 }

@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+
+  backoffice-payment-frontend:
+    image: backoffice-payment-frontend
+    container_name: backoffice-payment-frontend
+    build:
+      context: .
+      dockerfile: apps/backoffice-payment-frontend/Dockerfile
+    ports:
+      - "4200:80"
+    depends_on:
+      - message-ingest-service
+
+  message-ingest-service:
+    image: message-ingest-service
+    container_name: message-ingest-service
+    build:
+      context: .
+      dockerfile: apps/message-ingest-service/Dockerfile
+    ports:
+      - "8080:8080"

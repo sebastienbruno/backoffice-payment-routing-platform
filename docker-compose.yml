@@ -2,6 +2,15 @@ version: '3.8'
 
 services:
 
+  ibmmq:
+    image: ibmcom/mq
+    ports:
+      - "1414:1414"
+      - "9443:9443"
+    environment:
+      - LICENSE=accept
+      - MQ_QMGR_NAME=QM1
+
   backoffice-payment-frontend:
     image: backoffice-payment-frontend
     container_name: backoffice-payment-frontend
@@ -25,3 +34,4 @@ services:
       dockerfile: apps/message-api-service/Dockerfile
     ports:
       - "8080:8080"
+

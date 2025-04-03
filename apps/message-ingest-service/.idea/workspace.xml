@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9a351e89-cd79-4a9e-a1a1-973fadeb1205" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../message-api-service/src/main/java/com/sebastienbruno/bo_payment_routing_plateform/message_api_service/controller/MessageController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../message-api-service/src/main/java/com/sebastienbruno/bo_payment_routing_plateform/message_api_service/dto/MessageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../message-api-service/src/main/java/com/sebastienbruno/bo_payment_routing_plateform/message_api_service/mapper/MessageMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../message-api-service/src/main/java/com/sebastienbruno/bo_payment_routing_plateform/message_api_service/service/MessageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/MavenWrapperDownloader.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.mvn/wrapper/maven-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mvnw.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sebastienbruno/bo_payment_routing_plateform/message_ingest_service/MessageIngestServiceApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sebastienbruno/bo_payment_routing_plateform/message_ingest_service/model/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/../message-api-service/src/main/java/com/sebastienbruno/bo_payment_routing_plateform/message_api_service/model/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sebastienbruno/bo_payment_routing_plateform/message_ingest_service/repository/MessageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../message-api-service/src/main/java/com/sebastienbruno/bo_payment_routing_plateform/message_api_service/repository/MessageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/data.sql" beforeDir="false" afterPath="$PROJECT_DIR$/../message-api-service/src/main/resources/data.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/sebastienbruno/bo_payment_routing_plateform/message_ingest_service/MessageIngestServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../message-api-service/src/test/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../../docker-compose.yml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;sbruno-insight-decision&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/sebastienbruno/backoffice-payment-routing-platform.git&quot;,
+    &quot;accountId&quot;: &quot;a94562d2-97f8-4c11-a56a-01875960ae52&quot;
+  }
+}</component>
+  <component name="JpbToolWindowState">
+    <option name="isToolWindowVisible" value="false" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2vBHOpuhi9ipz71fcE9rUY9FJvs" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Message API.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Message Ingest.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.bo-payment-routing-plateform [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.bo-payment-routing-plateform [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.bo-payment-routing-plateform [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.message-api-service [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.message-domain [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.message-domain [install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.message-ingest-service [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.message-ingest-service [clean,package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.message-ingest-service [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.message-ingest-service [install].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;F:/Workspace/CACIB/backoffice-payment-routing-platform&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.annotationProcessors&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="F:\Workspace\CACIB\backoffice-payment-routing-platform\apps\message-api-service\src\test\resources" />
+      <recent name="F:\Workspace\CACIB\backoffice-payment-routing-platform\apps\message-api-service\src\main\resources" />
+      <recent name="F:\Workspace\CACIB\backoffice-payment-routing-platform\apps\message-api-service\src\main\java\com\sebastienbruno\bo_payment_routing_plateform\message_api_service" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.sebastienbruno.bo_payment_routing_plateform.message_domain" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Message API">
+    <configuration name="Message API" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.sebastienbruno.bo_payment_routing_plateform.message_api_service.MessageApiServiceApplication" />
+      <module name="message-api-service" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="bo-payment-routing-plateform [clean]" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="cmdOptions" />
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="clean" />
+                <option value="-U" />
+              </list>
+            </option>
+            <option name="multimoduleDir" />
+            <option name="pomFileName" value="pom.xml" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="projectsCmdOptionValues">
+              <list />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$/../.." />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Application.Message API" />
+      <item itemvalue="Maven.bo-payment-routing-plateform [clean]" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9a351e89-cd79-4a9e-a1a1-973fadeb1205" name="Changes" comment="" />
+      <created>1743611518397</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1743611518397</updated>
+    </task>
+    <servers />
+  </component>
+</project>

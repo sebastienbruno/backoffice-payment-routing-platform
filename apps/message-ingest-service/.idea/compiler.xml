@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Annotation profile for bo-payment-routing-plateform" enabled="true">
+        <sourceOutputDir name="../../dist/apps/message-api-service/generated-sources/annotations" />
+        <sourceTestOutputDir name="../../dist/apps/message-api-service/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="message-api-service" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="message-domain" target="17" />
+      <module name="message-ingest-service" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="message-api-service" options="-parameters" />
+      <module name="message-ingest-service" options="-parameters" />
+    </option>
+  </component>
+</project>

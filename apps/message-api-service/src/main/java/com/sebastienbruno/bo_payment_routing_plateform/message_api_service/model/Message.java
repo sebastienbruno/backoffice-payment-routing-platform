@@ -13,6 +13,7 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -39,6 +40,7 @@ public class Message {
   @ElementCollection
   @CollectionTable(name = "message_recipients", joinColumns = @JoinColumn(name = "message_id"))
   @Column(name = "recipient")
+  @BatchSize(size = 20)
   private List<String> recipients;
 
   /**

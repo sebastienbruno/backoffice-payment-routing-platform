@@ -17,8 +17,8 @@ services:
     volumes:
       - ./volumes/h2:/data/h2
     environment:
-      - H2_DB_PATH:/data/h2/bo-payment-routing-plateform
-      - IBM_MQ_CONN_NAME:ibmmq
+      - H2_DB_PATH=/data/h2/bo-payment-routing-plateform
+      - IBM_MQ_CONN_NAME=ibmmq(1414)
     build:
       context: .
       dockerfile: apps/message-api-service/Dockerfile

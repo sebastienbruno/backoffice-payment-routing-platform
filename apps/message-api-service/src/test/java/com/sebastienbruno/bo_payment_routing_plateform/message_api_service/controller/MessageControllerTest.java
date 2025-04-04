@@ -37,6 +37,7 @@ class MessageControllerTest {
 
   @Test
   void getMessages_shouldReturnPartialContent_whenHasNextPage() {
+    // Given
     MessageDTO message = MessageDTO.builder()
       .id(1L)
       .sender("sender")
@@ -47,8 +48,10 @@ class MessageControllerTest {
     Page<MessageDTO> page = new PageImpl<>(List.of(message), PageRequest.of(0, 1), 10);
     when(messageService.getMessagePage(0, 1)).thenReturn(page);
 
+    // When
     ResponseEntity<Page<MessageDTO>> response = controller.getMessages(0, 1);
 
+    // Then
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.PARTIAL_CONTENT);
     assertThat(response.getHeaders()).containsKeys("X-Total-Count", "X-Page-Number", "X-Page-Size");
     assertThat(response.getBody()).isEqualTo(page);
@@ -56,25 +59,31 @@ class MessageControllerTest {
 
   @Test
   void getMessages_shouldReturnOk_whenNoNextPage() {
+    // Given
     Page<MessageDTO> page = new PageImpl<>(List.of(), PageRequest.of(0, 10), 0);
     when(messageService.getMessagePage(0, 10)).thenReturn(page);
 
+    // When
     ResponseEntity<Page<MessageDTO>> response = controller.getMessages(0, 10);
 
+    // Then
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isEqualTo(page);
   }
 
   @Test
   void sendMessage_shouldReturnOk_whenMessageSentSuccessfully() {
+    // Given
     CreateMessageDTO dto = CreateMessageDTO.builder()
       .sender("sender")
       .recipients(List.of("receiver"))
       .payload("message content")
       .build();
 
+    // When
     ResponseEntity<String> response = controller.sendMessage(dto);
 
+    // Then
     verify(jmsTemplate).convertAndSend(JmsConfig.MESSAGE_QUEUE, dto);
     assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     assertThat(response.getBody()).isEqualTo("OK");

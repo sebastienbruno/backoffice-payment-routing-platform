@@ -49,3 +49,6 @@ Thumbs.db
 /apps/message-api-service/data
 /apps/partner-api-service/data
 
+# IMB MQ log
+/apps/message-api-service/mqjms.log*
+

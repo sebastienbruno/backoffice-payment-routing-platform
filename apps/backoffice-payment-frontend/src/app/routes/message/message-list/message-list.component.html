@@ -1,0 +1,4 @@
+<h1>Messages List TODO</h1>
+@for (message of messageStore.messagesEntities(); track message.id) {
+    <div>{{ `${message.id} - ${message.payload}` }}</div>
+}

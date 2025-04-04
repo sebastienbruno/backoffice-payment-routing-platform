@@ -1,0 +1,23 @@
+.bopr-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+    'header'
+    'content'
+    'footer';
+    height: calc(100vh);
+    padding: 0 16px;
+}
+
+bopr-header {
+    grid-area: header;
+}
+
+.main-content {
+    grid-area: content;
+}
+
+bopr-footer {
+    grid-area: footer;
+}

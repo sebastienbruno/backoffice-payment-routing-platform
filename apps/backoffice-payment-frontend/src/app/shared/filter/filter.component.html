@@ -1,0 +1,4 @@
+<mat-form-field class="filter-form">
+    <mat-label>{{filterLabel()}}</mat-label>
+    <input matInput (keyup)="onFilterChange($event)" [placeholder]="placeholder()" #input [value]="filter()">
+</mat-form-field>

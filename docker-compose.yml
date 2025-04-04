@@ -23,7 +23,7 @@ services:
       context: .
       dockerfile: apps/message-api-service/Dockerfile
     ports:
-      - "8080:8080"
+      - "8082:8080"
     depends_on:
       - ibmmq
 
@@ -37,3 +37,16 @@ services:
       - "4200:80"
     depends_on:
       - message-api-service
+
+  partner-api-service:
+    image: partner-api-service
+    container_name: partner-api-service
+    volumes:
+      - ./volumes/h2:/data/h2
+    environment:
+      - H2_DB_PATH=/data/h2/bo-payment-routing-plateform-partner
+    build:
+      context: .
+      dockerfile: apps/partner-api-service/Dockerfile
+    ports:
+      - "8084:8080"

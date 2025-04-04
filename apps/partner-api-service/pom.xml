@@ -9,10 +9,10 @@
     <relativePath>../../pom.xml</relativePath>
 	</parent>
 	<groupId>com.sebastienbruno.bo-payment-routing-plateform</groupId>
-	<artifactId>message-api-service</artifactId>
+	<artifactId>partner-api-service</artifactId>
 	<version>0.0.13-SNAPSHOT</version>
-	<name>message-api-service</name>
-	<description>Message API service</description>
+	<name>partner-api-service</name>
+	<description>Partner API service</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -30,7 +30,6 @@
 		<java.version>17</java.version>
     <lombok.version>1.18.30</lombok.version>
     <org.mapstruct.version>1.6.3</org.mapstruct.version>
-    <ibm.mq.version>3.0.6</ibm.mq.version>
     <org.springdoc.version>2.5.0</org.springdoc.version>
 	</properties>
 	<dependencies>
@@ -57,15 +56,6 @@
       <groupId>org.mapstruct</groupId>
       <artifactId>mapstruct</artifactId>
       <version>${org.mapstruct.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>com.ibm.mq</groupId>
-      <artifactId>mq-jms-spring-boot-starter</artifactId>
-      <version>${ibm.mq.version}</version>
     </dependency>
     <dependency>
 			<groupId>org.springframework.boot</groupId>

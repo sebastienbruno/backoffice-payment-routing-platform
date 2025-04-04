@@ -14,6 +14,7 @@
 	</parent>
 	<modules>
 		<module>apps/message-api-service</module>
+    <module>apps/partner-api-service</module>
 	</modules>
 
 	<dependencyManagement>

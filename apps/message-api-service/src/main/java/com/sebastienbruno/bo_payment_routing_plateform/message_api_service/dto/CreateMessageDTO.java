@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Schema(description = "Data Transfer Object to create a message")
+@Schema(description = "Data Transfer Object for message creation")
 public class CreateMessageDTO {
 
   @NotBlank(message = "Sender must not be blank")

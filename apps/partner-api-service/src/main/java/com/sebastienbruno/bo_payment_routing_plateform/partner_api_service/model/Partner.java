@@ -1,22 +1,18 @@
 package com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.model;
 
-import jakarta.persistence.CollectionTable;
+import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.enums.Direction;
+import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.enums.ProcessedFlowType;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.BatchSize;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Getter
@@ -29,8 +25,41 @@ public class Partner {
   private Long id;
 
   /**
-   * Alias of the partner
+   * Unique alias of the partner
+   */
+  @Column(nullable = false, unique = true)
+  private String alias;
+
+  /**
+   * Type of partner (e.g. system, internal, external, etc.)
    */
   @Column(nullable = false)
-  private String alias;
+  private String type;
+
+  /**
+   * Direction of the flow (INBOUND or OUTBOUND)
+   */
+  @Enumerated(EnumType.STRING)
+  @Column(nullable = false, length = 10)
+  private Direction direction;
+
+  /**
+   * Name of the application related to the partner
+   */
+  @Column
+  private String application;
+
+  /**
+   * Type of the processed flow (MESSAGE, ALERTING, NOTIFICATION)
+   */
+  @Enumerated(EnumType.STRING)
+  @Column(name = "processed_flow_type", nullable = false, length = 15)
+  private ProcessedFlowType processedFlowType;
+
+  /**
+   * Free-form description
+   */
+  @Column(nullable = false)
+  private String description;
+
 }

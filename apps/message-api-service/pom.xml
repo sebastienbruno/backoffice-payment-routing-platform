@@ -32,6 +32,7 @@
     <org.mapstruct.version>1.6.3</org.mapstruct.version>
     <ibm.mq.version>3.0.6</ibm.mq.version>
     <org.springdoc.version>2.5.0</org.springdoc.version>
+    <org.hibernate.validator.version>8.0.1.Final</org.hibernate.validator.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -75,6 +76,11 @@
     <dependency>
       <groupId>jakarta.validation</groupId>
       <artifactId>jakarta.validation-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>${org.hibernate.validator.version}</version>
     </dependency>
     <dependency>
       <groupId>org.springdoc</groupId>

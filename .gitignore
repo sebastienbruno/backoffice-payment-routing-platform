@@ -45,3 +45,7 @@ Thumbs.db
 
 # H2 Database
 /volumes
+/data
+/apps/message-api-service/data
+/apps/partner-api-service/data
+

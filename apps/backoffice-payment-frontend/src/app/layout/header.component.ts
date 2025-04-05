@@ -1,30 +1,22 @@
 import { Component } from "@angular/core";
 import { MatToolbar } from "@angular/material/toolbar"
+import { MatButtonModule } from "@angular/material/button"
 import { RouterModule } from "@angular/router";
-import { MatTabsModule } from "@angular/material/tabs"
 
 @Component({
     selector: 'bopr-header',
-    imports: [MatToolbar, RouterModule, MatTabsModule],
+    imports: [MatToolbar, RouterModule, MatButtonModule],
     template: `
-<div class="toolbar">
-  <mat-toolbar>
-    <span>BO Payment Routing Plaform</span>
-    <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-      <a mat-tab-link routerLinkActive="active-link" routerLink="/message" >Message</a>
-      <a mat-tab-link routerLinkActive="active-link" routerLink="/partner">Partner</a>
+  <mat-toolbar class="toolbar">
+    <span>BOPR</span>
+    <div class="spacer"></div>
+    <nav class="navbar">
+      <a mat-button routerLinkActive="active-link" routerLink="/message" >Message</a>
+      <a mat-button routerLinkActive="active-link" routerLink="/partner">Partner</a>
     </nav>
-    <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
-    <span class="spacer"></span>
   </mat-toolbar>
-</div>
     `,
-    styles: [`
-.spacer {
-    flex: 1 1 auto;
-}
-
-    `],
+    styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
 

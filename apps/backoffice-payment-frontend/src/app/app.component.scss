@@ -7,7 +7,6 @@
     'content'
     'footer';
     height: calc(100vh);
-    padding: 0 16px;
 }
 
 bopr-header {
@@ -16,6 +15,7 @@ bopr-header {
 
 .main-content {
     grid-area: content;
+    padding: 4px 16px;
 }
 
 bopr-footer {

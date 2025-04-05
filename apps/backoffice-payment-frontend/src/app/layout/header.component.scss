@@ -1,0 +1,18 @@
+.toolbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar {
+    flex-grow: 15;
+    display: flex;
+    justify-content: flex-start; column-gap: 2px;
+}
+
+.active-link {
+    background-color: color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+}
+
+.spacer {
+    flex: 1 1 auto;
+}

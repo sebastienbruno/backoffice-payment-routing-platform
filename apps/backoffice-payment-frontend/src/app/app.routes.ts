@@ -3,11 +3,19 @@ import { Route } from '@angular/router';
 export const appRoutes: Route[] = [
     {
         path: '',
-        redirectTo: '/message-list',
+        redirectTo: '/message',
         pathMatch: 'full',
     },
     {
-        path: 'message-list',
+        path: 'message',
         loadComponent: () => import('./routes/message/message-page.component').then((c) => c.MessagePageComponent),
+    },
+    {
+        path: 'partner-list',
+        loadComponent: () => import('./routes/partner/partner-list.component').then((c) => c.PartnerListComponent),
+    },
+    {
+        path: '**',
+        redirectTo: '',
     },
 ];

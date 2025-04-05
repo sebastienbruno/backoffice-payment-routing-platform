@@ -6,6 +6,6 @@ WORKDIR /app
 # Copy the pre-built JAR from the host
 COPY ./dist/apps/partner-api-service/*.jar partner-api-service.jar
 
-EXPOSE 8080
+EXPOSE 8084
 
 ENTRYPOINT ["java", "-jar", "partner-api-service.jar"]

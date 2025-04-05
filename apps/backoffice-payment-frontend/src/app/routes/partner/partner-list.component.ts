@@ -5,6 +5,6 @@ import { Component } from "@angular/core";
     templateUrl: './partner-list.component.html',
     selector: 'bopr-partner-list'
 })
-export class MessageListComponent {
+export class PartnerListComponent {
 
 }

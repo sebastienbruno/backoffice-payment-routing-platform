@@ -6,6 +6,6 @@ WORKDIR /app
 # Copy the pre-built JAR from the host
 COPY ./dist/apps/message-api-service/*.jar message-api-service.jar
 
-EXPOSE 8080
+EXPOSE 8082
 
 ENTRYPOINT ["java", "-jar", "message-api-service.jar"]

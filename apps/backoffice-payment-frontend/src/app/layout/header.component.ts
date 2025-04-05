@@ -11,7 +11,7 @@ import { MatTabsModule } from "@angular/material/tabs"
   <mat-toolbar>
     <span>BO Payment Routing Plaform</span>
     <nav mat-tab-nav-bar [tabPanel]="tabPanel">
-      <a mat-tab-link routerLinkActive="active-link" routerLink="/message-list" >Message</a>
+      <a mat-tab-link routerLinkActive="active-link" routerLink="/message" >Message</a>
       <a mat-tab-link routerLinkActive="active-link" routerLink="/partner-list">Partner</a>
     </nav>
     <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>

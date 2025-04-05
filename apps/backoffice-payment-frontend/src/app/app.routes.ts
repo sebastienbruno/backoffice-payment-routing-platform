@@ -11,8 +11,8 @@ export const appRoutes: Route[] = [
         loadComponent: () => import('./routes/message/message-page.component').then((c) => c.MessagePageComponent),
     },
     {
-        path: 'partner-list',
-        loadComponent: () => import('./routes/partner/partner-list.component').then((c) => c.PartnerListComponent),
+        path: 'partner',
+        loadComponent: () => import('./routes/partner/partner-page.component').then((c) => c.PartnerPageComponent),
     },
     {
         path: '**',

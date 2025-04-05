@@ -32,6 +32,5 @@ export class MessageApiService {
 
   page = computed(() => this.pageMessage().number);
   size = computed(() => this.pageMessage().size);
-  httpResource
     
 }

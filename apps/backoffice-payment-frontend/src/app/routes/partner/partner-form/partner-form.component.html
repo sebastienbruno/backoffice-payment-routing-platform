@@ -1,4 +1,47 @@
-<h1>Partner form</h1>
-<form>
+<h2 mat-dialog-title>Create new partner</h2>
 
+<form class="form" #form="ngForm">
+
+    <mat-dialog-content>
+
+        <div class="form-content">
+            <mat-form-field>
+                <mat-label>Alias</mat-label>
+                <input matInput [(ngModel)]="partner.alias" name="alias" required>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Type</mat-label>
+                <input matInput [(ngModel)]="partner.type" name="type" required>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Direction</mat-label>
+                <mat-select [(ngModel)]="partner.direction" name="direction">
+                    @for (directionOption of directionOptions; track $index) {
+                    <mat-option [value]="directionOption">{{directionOption | titlecase }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Application</mat-label>
+                <input matInput [(ngModel)]="partner.application" name="application">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Processed Flow Type</mat-label>
+                <mat-select [(ngModel)]="partner.processedFlowType" name="processedFlowType">
+                    @for (processedFlowTypeOption of processedFlowTypeOptions; track $index) {
+                    <mat-option [value]="processedFlowTypeOption">{{processedFlowTypeOption | titlecase }}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Description</mat-label>
+                <textarea matInput [(ngModel)]="partner.description" name="description" required></textarea>
+            </mat-form-field>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+        <button mat-stroked-button type="button" mat-dialog-close>Close</button>
+        <button mat-stroked-button type="reset">Reset</button>
+        <button mat-flat-button [disabled]="form.invalid" [mat-dialog-close]="partner">Save</button>
+    </mat-dialog-actions>
 </form>

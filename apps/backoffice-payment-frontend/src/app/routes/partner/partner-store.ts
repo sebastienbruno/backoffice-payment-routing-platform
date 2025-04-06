@@ -13,4 +13,6 @@ export class PartnerStore {
     partners = computed(() => 
         this.partnerService.partnersResource.value() || new Array<Partner>()
     );
+
+    
 }

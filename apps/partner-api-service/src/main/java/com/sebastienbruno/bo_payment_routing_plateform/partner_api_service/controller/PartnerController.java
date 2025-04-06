@@ -4,14 +4,26 @@ import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.dto.C
 import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.dto.PartnerDTO;
 import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.service.PartnerService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
+import java.util.Optional;
 
 @Tag(
   name = "Partner Management",
@@ -23,115 +35,110 @@ public class PartnerController {
 
   private final PartnerService service;
 
+  @Value("${partner.max-results:1000}")
+  private int maxResults;
+
   public PartnerController(PartnerService service) {
     this.service = service;
   }
 
   @Operation(
-    summary = "Retrieve a paginated list of partners",
-    description = "Returns partners. Pagination is supported using `page` and `size` query parameters.",
-    parameters = {
-      @Parameter(name = "page", description = "Page number to retrieve (0-based)", example = "0"),
-      @Parameter(name = "size", description = "Number of elements per page", example = "10")
-    },
+    summary = "Retrieve the list of partners",
+    description = "Returns the full list of MQ partners. If the total number of partners exceeds the configured limit, only a partial list is returned with HTTP 206 status.",
     responses = {
       @ApiResponse(responseCode = "200", description = "All partners returned"),
-      @ApiResponse(responseCode = "206", description = "Partial content returned (there are more pages)")
+      @ApiResponse(responseCode = "206", description = "Partial content returned due to result limit exceeded")
     }
   )
   @GetMapping
-  public Page<PartnerDTO> getPartners(
-    @RequestParam(defaultValue = "0") int page,
-    @RequestParam(defaultValue = "10") int size
-  ) {
-    return service.getPartnerPage(page, size);
+  public ResponseEntity<List<PartnerDTO>> getPartners(@RequestParam(value = "alias", required = false) String alias) {
+    List<PartnerDTO> partners;
+    int total;
+
+    if (alias != null) {
+      Optional<PartnerDTO> maybePartner = service.findByAlias(alias);
+      partners = maybePartner.map(List::of).orElse(List.of());
+    } else {
+      partners = service.getPartners();
+    }
+    total = partners.size();
+
+    boolean isTruncated = total > maxResults;
+    List<PartnerDTO> result = isTruncated ? partners.subList(0, maxResults) : partners;
+
+    ResponseEntity.BodyBuilder response = isTruncated
+      ? ResponseEntity.status(206)
+      : ResponseEntity.ok();
+
+    response.header("X-Total-Count", String.valueOf(total));
+
+    if (isTruncated) {
+      response.header("X-Content-Note", "Result set truncated to " + maxResults + " items.");
+    }
+
+    return response.body(result);
   }
 
   @Operation(
     summary = "Get a partner by ID",
-    description = "Returns a single partner by its unique database ID",
-    parameters = {
-      @Parameter(name = "id", description = "ID of the partner", example = "42")
-    },
     responses = {
       @ApiResponse(responseCode = "200", description = "Partner found"),
       @ApiResponse(responseCode = "404", description = "Partner not found")
     }
   )
   @GetMapping("/{id}")
-  public PartnerDTO getById(@PathVariable Long id) {
-    return service.getById(id);
-  }
-
-  @Operation(
-    summary = "Get a partner by alias",
-    description = "Returns a single partner by its unique alias",
-    parameters = {
-      @Parameter(name = "alias", description = "Alias of the partner", example = "partner-x")
-    },
-    responses = {
-      @ApiResponse(responseCode = "200", description = "Partner found"),
-      @ApiResponse(responseCode = "404", description = "Partner not found")
-    }
-  )
-  @GetMapping("/alias/{alias}")
-  public PartnerDTO getByAlias(@PathVariable String alias) {
-    return service.getByAlias(alias);
+  public ResponseEntity<PartnerDTO> getById(@PathVariable Long id) {
+    return ResponseEntity.ok(service.getById(id));
   }
 
   @Operation(
     summary = "Create a new partner",
-    description = "Creates a new partner using the provided details.",
     requestBody = @RequestBody(
       required = true,
       description = "Partner details to create",
       content = @Content(schema = @Schema(implementation = CreatePartnerDTO.class))
     ),
     responses = {
-      @ApiResponse(responseCode = "200", description = "Partner successfully created"),
+      @ApiResponse(responseCode = "201", description = "Partner successfully created"),
       @ApiResponse(responseCode = "400", description = "Invalid request payload")
     }
   )
   @PostMapping
-  public void create(@RequestBody CreatePartnerDTO dto) {
-    service.create(dto);
+  public ResponseEntity<PartnerDTO> create(@RequestBody CreatePartnerDTO dto) {
+    PartnerDTO created = service.create(dto);
+    URI location = ServletUriComponentsBuilder
+      .fromCurrentRequest()
+      .path("/{id}")
+      .buildAndExpand(created.getId())
+      .toUri();
+
+    return ResponseEntity.created(location).build();
   }
 
   @Operation(
     summary = "Update an existing partner",
-    description = "Updates an existing partner using the provided ID and details.",
-    parameters = {
-      @Parameter(name = "id", description = "ID of the partner to update", example = "42")
-    },
-    requestBody = @RequestBody(
-      required = true,
-      description = "Updated partner details",
-      content = @Content(schema = @Schema(implementation = CreatePartnerDTO.class))
-    ),
     responses = {
-      @ApiResponse(responseCode = "200", description = "Partner successfully updated"),
+      @ApiResponse(responseCode = "204", description = "Partner successfully updated"),
       @ApiResponse(responseCode = "400", description = "Invalid request payload"),
       @ApiResponse(responseCode = "404", description = "Partner not found")
     }
   )
   @PutMapping("/{id}")
-  public void update(@PathVariable Long id, @RequestBody CreatePartnerDTO dto) {
+  public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody PartnerDTO dto) {
     service.update(id, dto);
+    return ResponseEntity.noContent().build();
   }
 
   @Operation(
     summary = "Delete a partner by ID",
-    description = "Deletes the partner identified by its ID.",
-    parameters = {
-      @Parameter(name = "id", description = "ID of the partner to delete", example = "42")
-    },
     responses = {
-      @ApiResponse(responseCode = "200", description = "Partner successfully deleted"),
+      @ApiResponse(responseCode = "204", description = "Partner successfully deleted"),
       @ApiResponse(responseCode = "404", description = "Partner not found")
     }
   )
   @DeleteMapping("/{id}")
-  public void delete(@PathVariable Long id) {
+  public ResponseEntity<Void> delete(@PathVariable Long id) {
     service.delete(id);
+    return ResponseEntity.noContent().build();
   }
 }

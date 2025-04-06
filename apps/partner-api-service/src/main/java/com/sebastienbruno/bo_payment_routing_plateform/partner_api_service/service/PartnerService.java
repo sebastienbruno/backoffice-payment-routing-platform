@@ -15,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Log4j2
@@ -26,6 +27,16 @@ public class PartnerService {
   public PartnerService(PartnerRepository repository, PartnerMapper mapper) {
     this.repository = repository;
     this.mapper = mapper;
+  }
+
+  public List<PartnerDTO> getPartners() {
+    try {
+      List<Partner> partners = repository.findAll();
+      return mapper.listPartnerToListPartnerDto(partners);
+    } catch (Exception ex) {
+      log.error("Failed to retrieve partners", ex);
+      throw new IllegalStateException("Database error when fetching partners", ex);
+    }
   }
 
   public Page<PartnerDTO> getPartnerPage(int page, int size) {
@@ -46,8 +57,8 @@ public class PartnerService {
     }
   }
 
-  public void create(CreatePartnerDTO createPartnerDto) {
-    this.repository.save(this.mapper.createPartnerDtoToPartner(createPartnerDto));
+  public PartnerDTO create(CreatePartnerDTO createPartnerDto) {
+    return this.mapper.partnerToPartnerDto(this.repository.save(this.mapper.createPartnerDtoToPartner(createPartnerDto)));
   }
 
   public PartnerDTO getById(Long id) {
@@ -56,20 +67,19 @@ public class PartnerService {
     return mapper.partnerToPartnerDto(partner);
   }
 
-  public PartnerDTO getByAlias(String alias) {
-    Partner partner = repository.findByAlias(alias)
-      .orElseThrow(() -> new ResourceNotFoundException("Partner not found with alias: " + alias));
-    return mapper.partnerToPartnerDto(partner);
+  public Optional<PartnerDTO> findByAlias(String alias) {
+    return repository.findByAlias(alias)
+      .map(mapper::partnerToPartnerDto);
   }
 
-  public void update(Long id, CreatePartnerDTO dto) {
+  public PartnerDTO update(Long id, PartnerDTO dto) {
     Partner existingPartner = repository.findById(id)
       .orElseThrow(() -> new ResourceNotFoundException("Partner not found with id: " + id));
 
-    Partner updatedPartner = mapper.createPartnerDtoToPartner(dto);
+    Partner updatedPartner = mapper.partnerDtoToPartner(dto);
     updatedPartner.setId(existingPartner.getId());
 
-    repository.save(updatedPartner);
+    return this.mapper.partnerToPartnerDto(repository.save(updatedPartner));
   }
 
   public void delete(Long id) {

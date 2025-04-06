@@ -9,21 +9,25 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.Optional;
 
+import static org.hamcrest.Matchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(PartnerController.class)
 class PartnerControllerTest {
@@ -38,30 +42,56 @@ class PartnerControllerTest {
   private ObjectMapper objectMapper;
 
   @Test
-  void getPartners_shouldReturnPage() throws Exception {
+  void getPartners_shouldReturnAll() throws Exception {
     // Given
-    PartnerDTO partner = new PartnerDTO();
-    partner.setId(1L);
-    partner.setAlias("test-alias");
+    PartnerDTO partner = PartnerDTO.builder()
+      .id(1L)
+      .alias("test-alias")
+      .build();
 
-    when(partnerService.getPartnerPage(0, 10))
-      .thenReturn(new PageImpl<>(List.of(partner), PageRequest.of(0, 10), 1));
+    when(partnerService.getPartners())
+      .thenReturn(List.of(partner));
 
     // When
-    mockMvc.perform(get("/api/partners?page=0&size=10"))
+    mockMvc.perform(get("/api/partners"))
 
       // Then
       .andExpect(status().isOk())
-      .andExpect(jsonPath("content[0].id", is(1)))
-      .andExpect(jsonPath("content[0].alias", is("test-alias")));
+      .andExpect(header().string("X-Total-Count", "1"))
+      .andExpect(jsonPath("$[0].id", is(1)))
+      .andExpect(jsonPath("$[0].alias", is("test-alias")));
+  }
+
+  @Test
+  void getPartners_shouldReturn206_whenTooManyResults() throws Exception {
+    // Given
+    List<PartnerDTO> all =
+      java.util.stream.IntStream.rangeClosed(1, 1001)
+        .mapToObj(i -> PartnerDTO.builder()
+            .id((long) i)
+            .alias("alias-" + i)
+            .build()
+        ).toList();
+
+    when(partnerService.getPartners()).thenReturn(all);
+
+    // When
+    mockMvc.perform(get("/api/partners"))
+
+      // Then
+      .andExpect(status().isPartialContent())
+      .andExpect(header().string("X-Total-Count", "1001"))
+      .andExpect(header().string("X-Content-Note", org.hamcrest.Matchers.containsString("truncated")))
+      .andExpect(jsonPath("$.length()", is(1000)));
   }
 
   @Test
   void getById_shouldReturnPartner() throws Exception {
     // Given
-    PartnerDTO partner = new PartnerDTO();
-    partner.setId(1L);
-    partner.setAlias("test-alias");
+    PartnerDTO partner = PartnerDTO.builder()
+      .id(1L)
+      .alias("test-alias")
+      .build();
 
     when(partnerService.getById(1L)).thenReturn(partner);
 
@@ -77,25 +107,36 @@ class PartnerControllerTest {
   @Test
   void getByAlias_shouldReturnPartner() throws Exception {
     // Given
-    PartnerDTO partner = new PartnerDTO();
-    partner.setId(1L);
-    partner.setAlias("alias-x");
+    PartnerDTO partner = PartnerDTO.builder()
+      .id(1L)
+      .alias("alias-x")
+      .build();
 
-    when(partnerService.getByAlias("alias-x")).thenReturn(partner);
+    when(partnerService.findByAlias("alias-x")).thenReturn(Optional.of(partner));
 
     // When
-    mockMvc.perform(get("/api/partners/alias/alias-x"))
+    mockMvc.perform(get("/api/partners?alias=alias-x"))
 
       // Then
       .andExpect(status().isOk())
-      .andExpect(jsonPath("alias", is("alias-x")));
+      .andExpect(header().string("X-Total-Count", "1"))
+      .andExpect(jsonPath("$[0].id", is(1)))
+      .andExpect(jsonPath("$[0].alias", is("alias-x")));
   }
 
   @Test
-  void create_shouldCallService() throws Exception {
+  void create_shouldReturnCreatedStatusAndLocation() throws Exception {
     // Given
-    CreatePartnerDTO dto = new CreatePartnerDTO();
-    dto.setAlias("created-alias");
+    CreatePartnerDTO dto = CreatePartnerDTO.builder()
+      .alias("created-alias")
+      .build();
+
+    PartnerDTO created = PartnerDTO.builder()
+      .id(42L)
+      .alias("created-alias")
+      .build();
+
+    when(partnerService.create(any())).thenReturn(created);
 
     // When
     mockMvc.perform(post("/api/partners")
@@ -103,7 +144,8 @@ class PartnerControllerTest {
         .content(objectMapper.writeValueAsString(dto)))
 
       // Then
-      .andExpect(status().isOk());
+      .andExpect(status().isCreated())
+      .andExpect(header().string("Location", org.hamcrest.Matchers.containsString("/api/partners/42")));
 
     verify(partnerService).create(any(CreatePartnerDTO.class));
   }
@@ -111,8 +153,10 @@ class PartnerControllerTest {
   @Test
   void update_shouldCallService() throws Exception {
     // Given
-    CreatePartnerDTO dto = new CreatePartnerDTO();
-    dto.setAlias("updated-alias");
+    PartnerDTO dto = PartnerDTO.builder()
+      .id(1L)
+      .alias("updated-alias")
+      .build();
 
     // When
     mockMvc.perform(put("/api/partners/1")
@@ -120,9 +164,9 @@ class PartnerControllerTest {
         .content(objectMapper.writeValueAsString(dto)))
 
       // Then
-      .andExpect(status().isOk());
+      .andExpect(status().isNoContent());
 
-    verify(partnerService).update(eq(1L), any(CreatePartnerDTO.class));
+    verify(partnerService).update(eq(1L), any(PartnerDTO.class));
   }
 
   @Test
@@ -131,7 +175,7 @@ class PartnerControllerTest {
     mockMvc.perform(delete("/api/partners/1"))
 
       // Then
-      .andExpect(status().isOk());
+      .andExpect(status().isNoContent());
 
     verify(partnerService).delete(1L);
   }
@@ -154,25 +198,24 @@ class PartnerControllerTest {
   }
 
   @Test
-  void getByAlias_shouldReturn400_whenAliasInvalid() throws Exception {
+  void getByAlias_shouldReturnOKAndEmptyList_whenAliasInvalid() throws Exception {
     // Given
-    when(partnerService.getByAlias("invalid-alias"))
-      .thenThrow(new IllegalArgumentException("Invalid alias format"));
+    when(partnerService.findByAlias("invalid-alias")).thenReturn(Optional.empty());
 
     // When
-    mockMvc.perform(get("/api/partners/alias/invalid-alias"))
+    mockMvc.perform(get("/api/partners?alias=invalid-alias"))
 
       // Then
-      .andExpect(status().isBadRequest())
-      .andExpect(jsonPath("$.status", is(400)))
-      .andExpect(jsonPath("$.error", is("Bad Request")));
+      .andExpect(status().isOk())
+      .andExpect(header().string("X-Total-Count", "0"));
   }
 
   @Test
   void update_shouldReturn500_whenUnhandledException() throws Exception {
     // Given
-    CreatePartnerDTO dto = new CreatePartnerDTO();
-    dto.setAlias("crash");
+    CreatePartnerDTO dto = CreatePartnerDTO.builder()
+      .alias("crash")
+      .build();
 
     doThrow(new RuntimeException("Unexpected DB error"))
       .when(partnerService).update(eq(999L), any());

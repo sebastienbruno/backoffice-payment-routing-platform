@@ -8,9 +8,7 @@ import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.model
 import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.repository.PartnerRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -21,37 +19,48 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
 class PartnerServiceTest {
 
-  @Mock
   private PartnerRepository repository;
-
-  @Mock
   private PartnerMapper mapper;
-
-  @InjectMocks
   private PartnerService service;
 
   @BeforeEach
   void setUp() {
-    MockitoAnnotations.openMocks(this);
+    repository = mock(PartnerRepository.class);
+    mapper = Mappers.getMapper(PartnerMapper.class);
+    service = new PartnerService(repository, mapper);
   }
 
   @Test
-  void getPartnerPage_shouldReturnMappedPage() {
+  void getPartners_shouldReturnListOfPartnerDTOs() {
+    // Given
+    Partner partner = new Partner();
+    PartnerDTO dto = new PartnerDTO();
+
+    when(repository.findAll()).thenReturn(List.of(partner));
+
+    // When
+    List<PartnerDTO> result = service.getPartners();
+
+    // Then
+    assertThat(result).hasSize(1);
+    assertThat(result.get(0)).isEqualTo(dto);
+  }
+
+  @Test
+  void getPartnerPage_shouldReturnPage() {
     // Given
     Partner partner = new Partner();
     PartnerDTO partnerDTO = new PartnerDTO();
 
     when(repository.findAll(any(Pageable.class)))
       .thenReturn(new PageImpl<>(List.of(partner)));
-
-    when(mapper.listPartnerToListPartnerDto(List.of(partner)))
-      .thenReturn(List.of(partnerDTO));
 
     // When
     Page<PartnerDTO> result = service.getPartnerPage(0, 10);
@@ -72,28 +81,36 @@ class PartnerServiceTest {
   }
 
   @Test
-  void create_shouldMapAndSavePartner() {
+  void create_shouldSavePartner() {
     // Given
-    CreatePartnerDTO dto = new CreatePartnerDTO();
-    Partner partner = new Partner();
+    CreatePartnerDTO dto = CreatePartnerDTO.builder()
+      .alias("new-alias")
+      .build();
 
-    when(mapper.createPartnerDtoToPartner(dto)).thenReturn(partner);
+    Partner saved = new Partner();
+    saved.setId(42L);
+    saved.setAlias("new-alias");
+
+    when(repository.save(any())).thenReturn(saved);
 
     // When
-    service.create(dto);
+    PartnerDTO result = service.create(dto);
 
     // Then
-    verify(repository).save(partner);
+    assertThat(result.getId()).isEqualTo(42L);
+    assertThat(result.getAlias()).isEqualTo("new-alias");
   }
 
   @Test
   void getById_shouldReturnPartnerDTO_whenFound() {
     // Given
     Partner partner = new Partner();
-    PartnerDTO dto = new PartnerDTO();
+    partner.setId(1L);
+    PartnerDTO dto = PartnerDTO.builder()
+      .id(1L)
+      .build();
 
     when(repository.findById(1L)).thenReturn(Optional.of(partner));
-    when(mapper.partnerToPartnerDto(partner)).thenReturn(dto);
 
     // When
     PartnerDTO result = service.getById(1L);
@@ -113,48 +130,60 @@ class PartnerServiceTest {
   }
 
   @Test
-  void getByAlias_shouldReturnPartnerDTO_whenFound() {
+  void findByAlias_shouldReturnPartnerDTO_whenFound() {
     // Given
     Partner partner = new Partner();
+    partner.setAlias("search-by-alias");
     PartnerDTO dto = new PartnerDTO();
+    dto.setAlias("search-by-alias");
 
-    when(repository.findByAlias("alias")).thenReturn(Optional.of(partner));
-    when(mapper.partnerToPartnerDto(partner)).thenReturn(dto);
+    when(repository.findByAlias("search-by-alias")).thenReturn(Optional.of(partner));
 
     // When
-    PartnerDTO result = service.getByAlias("alias");
+    Optional<PartnerDTO> result = service.findByAlias("search-by-alias");
 
     // Then
-    assertThat(result).isEqualTo(dto);
+    assertThat(result.get()).isEqualTo(dto);
   }
 
   @Test
-  void getByAlias_shouldThrow_whenNotFound() {
+  void findByAlias_shouldReturnEmptyOptional_whenNotFound() {
     // Given
     when(repository.findByAlias("alias")).thenReturn(Optional.empty());
 
-    // When + Then
-    assertThatThrownBy(() -> service.getByAlias("alias"))
-      .isInstanceOf(ResourceNotFoundException.class);
+    // When
+    Optional<PartnerDTO> result = service.findByAlias("alias");
+
+    // Then
+    assertThat(result).isEmpty();
   }
 
   @Test
-  void update_shouldMapAndSaveUpdatedPartner_whenExists() {
+  void update_shouldSaveAndReturnPartnerDTO_whenExists() {
     // Given
-    Partner existing = new Partner();
-    existing.setId(1L);
-    CreatePartnerDTO dto = new CreatePartnerDTO();
-    Partner mapped = new Partner();
+    Long id = 1L;
 
-    when(repository.findById(1L)).thenReturn(Optional.of(existing));
-    when(mapper.createPartnerDtoToPartner(dto)).thenReturn(mapped);
+    PartnerDTO dto = new PartnerDTO();
+    dto.setId(id);
+    dto.setAlias("updated-alias");
+
+    Partner existing = new Partner();
+    existing.setId(id);
+    existing.setAlias("alias-to-update");
+
+    Partner updated = new Partner();
+    updated.setId(id);
+    updated.setAlias("updated-alias");
+
+    when(repository.findById(id)).thenReturn(Optional.of(existing));
+    when(repository.save(any(Partner.class))).thenReturn(updated);
 
     // When
-    service.update(1L, dto);
+    PartnerDTO result = service.update(id, dto);
 
     // Then
-    assertThat(mapped.getId()).isEqualTo(1L);
-    verify(repository).save(mapped);
+    assertThat(result.getId()).isEqualTo(id);
+    assertThat(result.getAlias()).isEqualTo("updated-alias");
   }
 
   @Test
@@ -163,7 +192,7 @@ class PartnerServiceTest {
     when(repository.findById(1L)).thenReturn(Optional.empty());
 
     // When + Then
-    assertThatThrownBy(() -> service.update(1L, new CreatePartnerDTO()))
+    assertThatThrownBy(() -> service.update(1L, new PartnerDTO()))
       .isInstanceOf(ResourceNotFoundException.class);
   }
 

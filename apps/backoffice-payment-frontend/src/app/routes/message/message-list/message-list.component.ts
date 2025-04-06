@@ -1,14 +1,15 @@
 import { Component, computed, inject, Signal } from "@angular/core";
-import { MessageStore } from "../message-store";
+import { FormsModule } from "@angular/forms";
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
-import { Message, MessageDetailDataDialog } from "../models/message.models";
-import { FormsModule } from "@angular/forms";
 import { MatIconModule } from '@angular/material/icon';
 import { MatIconButton } from "@angular/material/button";
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { MessageDetailComponent } from "../message-detail/message-detail.component";
 import { tap } from "rxjs";
+
+import { Message, MessageDetailDataDialog } from "../models/message.models";
+import { MessageStore } from "../message-store";
+import { MessageDetailComponent } from "../message-detail/message-detail.component";
 
 @Component({
     styles: [],

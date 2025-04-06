@@ -2,7 +2,6 @@ import { httpResource } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 
 import { API_URL_MESSAGE } from './../../../environments/url';
-
 import { PageMessage } from './models/message.models';
 
 @Injectable({

@@ -1,4 +1,5 @@
 import { Component } from "@angular/core";
+
 import { MessageListComponent } from "./message-list/message-list.component";
 
 @Component({

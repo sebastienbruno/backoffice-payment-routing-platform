@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
+import { RouterModule } from "@angular/router";
 import { MatToolbar } from "@angular/material/toolbar"
 import { MatButtonModule } from "@angular/material/button"
-import { RouterModule } from "@angular/router";
 
 @Component({
     selector: 'bopr-header',

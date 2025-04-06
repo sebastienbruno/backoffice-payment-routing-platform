@@ -1,14 +1,15 @@
 import { Component, computed, inject, Signal } from "@angular/core";
+import { FormsModule } from "@angular/forms";
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
-import { Partner } from "../models/partner.models";
-import { FormsModule } from "@angular/forms";
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { tap } from "rxjs";
+
+import { Partner } from "../models/partner.models";
 import { PartnerStore } from "../partner-store";
 import { PartnerFormComponent } from "../partner-form/partner-form.component";
-import { MatPaginatorModule } from '@angular/material/paginator';
 
 @Component({
     styles: [],

@@ -1,9 +1,10 @@
 import { Component, inject } from "@angular/core";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
-import { PartnerFormComponent } from "./partner-form/partner-form.component";
-import { tap } from "rxjs";
-import { partnerListComponent } from "./partner-list/partner-list.component";
 import { MatButtonModule } from "@angular/material/button";
+import { tap } from "rxjs";
+
+import { PartnerFormComponent } from "./partner-form/partner-form.component";
+import { partnerListComponent } from "./partner-list/partner-list.component";
 
 @Component({
     imports: [MatDialogModule, partnerListComponent, MatButtonModule],

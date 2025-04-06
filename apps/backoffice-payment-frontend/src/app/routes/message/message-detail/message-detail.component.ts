@@ -1,9 +1,10 @@
-import { MatChipsModule } from '@angular/material/chips';
 import { Component, inject } from "@angular/core";
-import { MessageDetailDataDialog } from "../models/message.models";
+import { MatChipsModule } from '@angular/material/chips';
 import { MAT_DIALOG_DATA, MatDialogModule } from "@angular/material/dialog";
 import { MatButton } from "@angular/material/button";
 import {MatDividerModule} from '@angular/material/divider';
+
+import { MessageDetailDataDialog } from "../models/message.models";
 
 @Component({
     selector: 'bopr-message-detail',

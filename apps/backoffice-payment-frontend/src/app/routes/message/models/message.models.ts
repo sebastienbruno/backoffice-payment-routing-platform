@@ -5,4 +5,4 @@ export type Message = {
     payload: string;
 }
 
-  
+export type MessageDetailDataDialog = Message;

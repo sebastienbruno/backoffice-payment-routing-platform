@@ -1,0 +1,39 @@
+<h2 mat-dialog-title>📩 Message detail</h2>
+
+<mat-dialog-content class="dialog-content">
+  <div class="entry">
+    <span class="label">Identifier:</span>
+    <span class="value">{{ data.id }}</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="entry">
+    <span class="label">Sender:</span>
+    <span class="value">{{ data.sender }}</span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="entry">
+    <span class="label">Recipients:</span>
+    <mat-chip-set>
+      @for( recipient of data.recipients; track recipient) {
+        <mat-chip color="primary" selected>
+          {{ recipient }}
+        </mat-chip>
+      }
+    </mat-chip-set>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="entry">
+    <span class="label">Payload:</span>
+    <pre class="payload">{{ data.payload }}</pre>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-flat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

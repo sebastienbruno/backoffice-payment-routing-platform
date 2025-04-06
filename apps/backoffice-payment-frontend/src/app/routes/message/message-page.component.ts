@@ -2,7 +2,15 @@ import { Component } from "@angular/core";
 import { MessageListComponent } from "./message-list/message-list.component";
 
 @Component({
-    styles: [],
+    styles: [`
+    :host {
+        display: flex;
+        justify-content: center;
+    }
+    .message-container {
+        width: 80%;
+    }
+    `],
     imports: [
         MessageListComponent
     ],

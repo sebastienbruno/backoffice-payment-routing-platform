@@ -1,7 +1,15 @@
 import { Component } from "@angular/core";
 
 @Component({
-    styles: [],
+    styles: [`
+    :host {
+        display: flex;
+        justify-content: center;
+    }
+    .partner-container {
+        width: 80%;
+    }
+    `],
     template: `
     <div class="partner-container">
         <h1>Partner overview</h1>

@@ -1,0 +1,40 @@
+:host {
+    height: 95%;
+    padding: 20px;
+}
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 80px;
+  
+    .entry {
+      display: flex;
+      flex-direction: column;
+  
+      .label {
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+  
+      .value, .payload {
+        font-family: monospace;
+      }
+  
+      .payload {
+        background-color: color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+        padding: 12px;
+        border-radius: 4px;
+        white-space: pre-wrap;
+        min-height: 160px;
+      }
+    }
+  
+    mat-chip-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+  }
+  

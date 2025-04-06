@@ -16,7 +16,6 @@ import { MessageListComponent } from "./message-list/message-list.component";
     ],
     template: `
     <div class="message-container">
-        <!-- <bopr-message-filter /> -->
         <bopr-message-list class="message-list-content" />
     </div>
     `,

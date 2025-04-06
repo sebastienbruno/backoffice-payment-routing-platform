@@ -1,7 +1,9 @@
 import { httpResource } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { PageMessage } from '../../shared/models/message.models';
-import { API_URL_MESSAGE } from '../../../environments/url';
+
+import { API_URL_MESSAGE } from './../../../environments/url';
+
+import { PageMessage } from './models/message.models';
 
 @Injectable({
   providedIn: 'root'

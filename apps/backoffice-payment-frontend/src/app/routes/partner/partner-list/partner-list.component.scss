@@ -1,0 +1,91 @@
+.mat-column-id {
+    width: 20%;
+    border-right: 1px solid color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+}
+
+.mat-column-sender {
+    width: 30%;
+    border-right: 1px solid color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+}
+
+.mat-mdc-row {
+    cursor: pointer;
+
+    &:hover {
+        background-color: color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
+    }
+}
+
+.paginator {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 8px;
+    flex-wrap: wrap;
+    min-height: var(--mat-paginator-container-size, 56px);
+    background-color: var(--mat-table-background-color, var(--mat-sys-surface));
+    font-family: var(--mat-paginator-container-text-font, var(--mat-sys-body-small-font));
+    font-size: var(--mat-paginator-container-text-size, var(--mat-sys-body-small-size));
+    line-height: var(--mat-paginator-container-text-line-height, var(--mat-sys-body-small-line-height));
+    font-weight: var(--mat-paginator-container-text-weight, var(--mat-sys-body-small-weight));
+    letter-spacing: var(--mat-paginator-container-text-tracking, var(--mat-sys-body-small-tracking));
+
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    padding: 0 10px;
+}
+
+.paginator-size {
+    display: flex;
+    align-items: baseline;
+    margin-right: 8px;
+    gap: 15px;
+
+    .select {
+        background-color: var(--mat-table-background-color, var(--mat-sys-surface));
+        width: 84px;
+        border-radius: 8%;
+        height: 38px;
+        transition: 0.4s;
+        cursor: pointer;
+
+        option {
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px;
+
+            border: 2px solid #ddd;
+            background: var(--mat-table-background-color, var(--mat-sys-surface));
+            padding: 10px;
+            transition: 0.4s;
+
+            &:first-of-type {
+                border-radius: 8px 8px 0 0;
+            }
+
+            &:last-of-type {
+                border-radius: 0 0 8px 8px;
+            }
+
+            &:hover,
+            &:focus {
+                background: plum;
+            }
+        }
+    }
+}
+
+.select {
+    display: inline-block;
+    width: auto;
+    outline: none;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    color: var(--mat-select-enabled-trigger-text-color, var(--mat-sys-on-surface));
+    font-family: var(--mat-select-trigger-text-font, var(--mat-sys-body-large-font));
+    line-height: var(--mat-select-trigger-text-line-height, var(--mat-sys-body-large-line-height));
+    font-size: var(--mat-select-trigger-text-size, var(--mat-sys-body-large-size));
+    font-weight: var(--mat-select-trigger-text-weight, var(--mat-sys-body-large-weight));
+    letter-spacing: var(--mat-select-trigger-text-tracking, var(--mat-sys-body-large-tracking));
+}

@@ -6,9 +6,9 @@ import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.servi
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -93,7 +94,7 @@ public class PartnerController {
 
   @Operation(
     summary = "Create a new partner",
-    requestBody = @RequestBody(
+    requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
       required = true,
       description = "Partner details to create",
       content = @Content(schema = @Schema(implementation = CreatePartnerDTO.class))
@@ -104,7 +105,7 @@ public class PartnerController {
     }
   )
   @PostMapping
-  public ResponseEntity<PartnerDTO> create(@RequestBody CreatePartnerDTO dto) {
+  public ResponseEntity<PartnerDTO> create(@Valid @RequestBody CreatePartnerDTO dto) {
     PartnerDTO created = service.create(dto);
     URI location = ServletUriComponentsBuilder
       .fromCurrentRequest()
@@ -124,7 +125,7 @@ public class PartnerController {
     }
   )
   @PutMapping("/{id}")
-  public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody PartnerDTO dto) {
+  public ResponseEntity<Void> update(@PathVariable Long id, @Valid @RequestBody PartnerDTO dto) {
     service.update(id, dto);
     return ResponseEntity.noContent().build();
   }

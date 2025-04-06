@@ -3,6 +3,8 @@ package com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.cont
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.dto.CreatePartnerDTO;
 import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.dto.PartnerDTO;
+import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.enums.Direction;
+import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.enums.ProcessedFlowType;
 import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.exception.ResourceNotFoundException;
 import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.service.PartnerService;
 import org.junit.jupiter.api.Test;
@@ -129,11 +131,19 @@ class PartnerControllerTest {
     // Given
     CreatePartnerDTO dto = CreatePartnerDTO.builder()
       .alias("created-alias")
+      .type("created-type")
+      .direction(Direction.INBOUND)
+      .description("created-description")
+      .processedFlowType(ProcessedFlowType.MESSAGE)
       .build();
 
     PartnerDTO created = PartnerDTO.builder()
       .id(42L)
       .alias("created-alias")
+      .type("created-type")
+      .direction(Direction.INBOUND)
+      .description("created-description")
+      .processedFlowType(ProcessedFlowType.MESSAGE)
       .build();
 
     when(partnerService.create(any())).thenReturn(created);

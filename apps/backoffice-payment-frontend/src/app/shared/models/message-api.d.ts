@@ -87,12 +87,12 @@ export interface components {
              * @description Unique identifier of the message
              * @example 123
              */
-            id?: number;
+            id: number;
             /**
              * @description Name of the sender application
              * @example backoffice-app
              */
-            sender?: string;
+            sender: string;
             /**
              * @description List of message recipients
              * @example [
@@ -100,12 +100,12 @@ export interface components {
              *       "partner-b"
              *     ]
              */
-            recipients?: string[];
+            recipients: string[];
             /**
              * @description Payload content of the message
              * @example ALERT|LEVEL:HIGH|TIMESTAMP:2025-04-02T11:30:00
              */
-            payload?: string;
+            payload: string;
         };
         PageMessageDTO: {
             /** Format: int64 */

@@ -16,6 +16,8 @@ bopr-header {
 .main-content {
     grid-area: content;
     padding: 4px 16px;
+    overflow-y: auto; 
+    height: 100%; 
 }
 
 bopr-footer {

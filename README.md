@@ -55,8 +55,21 @@ npm --version
 ```
 ---
 
-## 🛠️ How to Run
+## 🛠️ How to Run (and download ghcr.io latest images)
 
+### 1. Clone the repository
+```bash
+git clone https://github.com/sebastienbruno/backoffice-payment-routing-platform.git
+cd backoffice-payment-routing-platform
+```
+
+### 2. Start the full stack
+```bash
+docker compose -f docker-compose-images-based.yml up
+```
+
+
+## 🛠️ How to Install, Build and Run 
 
 ### 1. Clone the repository
 ```bash

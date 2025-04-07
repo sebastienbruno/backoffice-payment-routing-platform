@@ -1,15 +1,13 @@
-import { Component, computed, inject, Signal } from "@angular/core";
+import { Component, computed, inject, Signal, viewChild } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { tap } from "rxjs";
 
 import { Partner } from "../models/partner.models";
 import { PartnerStore } from "../partner-store";
-import { PartnerFormComponent } from "../partner-form/partner-form.component";
 
 @Component({
     styles: [],
@@ -25,6 +23,7 @@ export class partnerListComponent {
 
     partnerStore = inject(PartnerStore);
     dialog = inject(MatDialog);
+    paginator = viewChild.required(MatPaginator);
 
     partnerList = this.partnerStore.partners;
     displayedColumns: string[] = [
@@ -38,19 +37,7 @@ export class partnerListComponent {
       
     dataSource:Signal<MatTableDataSource<Partner>> = computed(() => {
       const dataSource = new MatTableDataSource<Partner>(this.partnerStore.partners());
+      dataSource.paginator = this.paginator();
       return dataSource;
     });
-  
-    onClickPartner(partner: Partner) {
-      console.log('view partner detail', partner.id)
-      const partnerDetailDialogRef = this.dialog.open(PartnerFormComponent, {
-        height: '80%',
-        width: '60%',
-        maxWidth: '100%',
-        disableClose: true,
-      }); 
-      partnerDetailDialogRef.afterClosed().pipe(
-        tap(() => partnerDetailDialogRef.close()),
-      ).subscribe();
-    }
   }

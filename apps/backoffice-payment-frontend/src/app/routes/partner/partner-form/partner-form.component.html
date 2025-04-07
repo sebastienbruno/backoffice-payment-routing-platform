@@ -15,7 +15,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Direction</mat-label>
-                <mat-select [(ngModel)]="partner.direction" name="direction">
+                <mat-select [(ngModel)]="partner.direction" name="direction" required>
                     @for (directionOption of directionOptions; track $index) {
                     <mat-option [value]="directionOption">{{directionOption | titlecase }}</mat-option>
                     }
@@ -27,7 +27,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Processed Flow Type</mat-label>
-                <mat-select [(ngModel)]="partner.processedFlowType" name="processedFlowType">
+                <mat-select [(ngModel)]="partner.processedFlowType" name="processedFlowType" required>
                     @for (processedFlowTypeOption of processedFlowTypeOptions; track $index) {
                     <mat-option [value]="processedFlowTypeOption">{{processedFlowTypeOption | titlecase }}</mat-option>
                     }

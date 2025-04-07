@@ -1,4 +1,3 @@
-import { PartnerStore } from './partner-store';
 import { Component, inject } from "@angular/core";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
@@ -17,7 +16,7 @@ import { PartnerApiService } from './partner-api.service';
         justify-content: center;
     }
     .partner-container {
-        width: 80%;
+        width: 90%;
         display: flex;
         flex-direction: column;
     }
@@ -38,7 +37,7 @@ import { PartnerApiService } from './partner-api.service';
                 </button>
             </div>
         </div>
-        <bopr-partner-list class="partner-list-content" />
+        <bopr-partner-list />
     </div>
     `,
     selector: 'bopr-partner-page'

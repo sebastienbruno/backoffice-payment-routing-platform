@@ -1,3 +1,8 @@
+@if (loadingService.isLoading()) {
+    <div class="progress-bar" >
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+}
 <div class="bopr-container">
     <bopr-header/>
     <div class="main-content">

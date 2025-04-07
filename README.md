@@ -1,82 +1,150 @@
-# BackofficePaymentRoutingPlatform
+# 💳 Backoffice Payment Routing Platform
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+This project implements a secure and resilient message routing system for the Payment Department of a bank.  
+It was designed to demonstrate strong software engineering skills in the context of high-volume **IBM MQ**-based message processing with full web interface and service orchestration.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+---
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+## 🚀 Functional Objectives
 
-## Finish your CI setup
+- Read messages from an **IBM MQ Series** queue.
+- Persist messages in a **relational database**.
+- Display messages in a modern **Angular UI** (table format).
+- Show message **details in a modal window**.
+- Provide **full CRUD APIs** for MQ partners.
+- UI navigation with:
+  - `Messages`
+  - `Partners`
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/iy6Sr0JwOO)
+---
+
+## 🧱 System Architecture
 
 
-## Run tasks
 
-To run the dev server for your app, use:
+---
 
-```sh
-npx nx serve backoffice-payment-frontend
+## ⚙️ Technology Stack
+
+| Component        | Technology                          |
+|------------------|--------------------------------------|
+| Backend           | Java 17+, Spring Boot 3.2.4, Maven   |
+| Frontend          | Angular 19, Angular Material         |
+| Monorepo          | Nx                                   |
+| Messaging Queue   | IBM MQ Series                        |
+| Database          | H2 (file persistence)                |
+| API Docs          | Swagger OpenAPI                      |
+| Deployment        | Docker & Docker Compose              |
+
+---
+
+## 🏁 Prerequisites
+
+- [Docker](https://www.docker.com/)
+- [Node.js](https://nodejs.org/en/) >= 18.x
+- [npm](https://www.npmjs.com/) >= 9.x
+
+---
+
+## 🛠️ How to Run
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/sebastienbruno/backoffice-payment-routing-platform.git
+cd backoffice-payment-routing-platform
+
+# 2. Install frontend dependencies
+npm install
+
+# 3. Build Docker images
+npx nx run-many -t docker-build
+
+# 4. Start the full stack
+docker-compose up
 ```
 
-To create a production bundle:
+---
 
-```sh
-npx nx build backoffice-payment-frontend
+## 🌐 Access Points
+
+| Interface                   | URL                                                      |
+|-----------------------------|-----------------------------------------------------------|
+| Angular Frontend UI         | [http://localhost:4200](http://localhost:4200)            |
+| Message API Swagger         | [http://localhost:8082/swagger-ui/index.html](http://localhost:8082/swagger-ui/index.html) |
+| Partner API Swagger         | [http://localhost:8084/swagger-ui/index.html](http://localhost:8084/swagger-ui/index.html) |
+
+---
+
+## 📚 Service Documentation
+
+- Angular Frontend: [`apps/frontend-app/README.md`](apps/frontend-app/README.md)
+- Partner Microservice: [`apps/partner-api-service/README.md`](apps/partner-api-service/README.md)
+- Message Microservice: [`apps/message-api-service/README.md`](apps/message-api-service/README.md)
+
+---
+
+## ✅ Completed Features
+
+### ✔️ Backend
+- Reads messages from IBM MQ
+- Persists them into H2 (file-based)
+- Exposes REST APIs with full Swagger documentation
+- Partner management: full CRUD with validations
+
+### ✔️ Frontend
+- Message table view
+- Message detail modal
+- Partner list and creation form
+- Sidebar navigation
+
+---
+
+## 🔮 Roadmap (Future Work)
+
+- [ ] Global HTTP error handler (`ErrorHandler`)
+- [ ] HTTP action notifications via `Snackbar` (Create, Update, Delete)
+- [ ] Frontend unit tests (httpResource is not supported in Angular 19)
+- [ ] Add an **API Gateway** to centralize backend access and frontend configuration
+- [ ] Monitoring integration (Micrometer / Prometheus)
+- [ ] Retry / dead-letter queue handling for MQ delivery
+
+---
+
+## 🧪 Testing Strategy
+
+- **Backend**: Unit tests using **JUnit 5** and **MockMvc**
+- **Frontend**: Planned (see roadmap)
+
+---
+
+## 🧼 Best Practices
+
+- Fully **SOLID-compliant** backend design
+- Modular, maintainable, and scalable architecture
+- Clean and consistent code
+- Clear API contracts via DTOs and validation
+- Swagger documentation for all REST endpoints
+
+---
+
+## 🗂️ Repository Structure
+
+```
+.
+├── apps/
+│   ├── frontend-app/          # Angular 19 frontend
+│   ├── partner-api-service/   # Spring Boot partner microservice
+│   └── message-api-service/   # Spring Boot message microservice
+├── docker-compose.yml
+├── nx.json
+├── package.json
+└── pom.xml
 ```
 
-To see all available targets to run for a project, run:
+---
 
-```sh
-npx nx show project backoffice-payment-frontend
-```
+## 📬 Contact
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
-
-```sh
-npx nx g @nx/angular:app demo
-```
-
-To generate a new library, use:
-
-```sh
-npx nx g @nx/angular:lib mylib
-```
-
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+**Sébastien Bruno**  
+📧 sebastien.bruno@gmail.com  
+🔗 [github.com/sebastienbruno](https://github.com/sebastienbruno)

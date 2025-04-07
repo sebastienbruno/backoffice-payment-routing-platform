@@ -69,7 +69,7 @@ docker compose -f docker-compose-images-based.yml up
 ```
 
 
-## 🛠️ How to Install, Build and Run 
+## 🛠️ Alternative - How to Install, Build and Run 
 
 ### 1. Clone the repository
 ```bash

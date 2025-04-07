@@ -12,21 +12,19 @@ export class PartnerApiService {
 
   httpClient = inject(HttpClient);
 
-  partnerChanged = signal<boolean>(true);
   partnersResource = httpResource<Partner[]>(() => {
-    this.partnerChanged();
     return API_URL_PARTNER;
   })
 
   createPartner(createPartner: CreatePartner) {
     this.httpClient.post(API_URL_PARTNER, createPartner).pipe(
-      tap(() => this.partnerChanged.update(a => !a)),
+      tap(() => this.partnersResource.reload()),
     ).subscribe();
   }
 
   deletePartner(partner: Partner) {
     this.httpClient.delete(`${API_URL_PARTNER}/${partner.id}`).pipe(
-      tap(() => this.partnerChanged.update(a => !a)),
+      tap(() => this.partnersResource.reload()),
     ).subscribe();
   }
 

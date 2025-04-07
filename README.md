@@ -104,14 +104,6 @@ docker-compose up
 
 ---
 
-## 📚 Service Documentation
-
-- Angular Frontend: [`apps/frontend-app/README.md`](apps/frontend-app/README.md)
-- Partner Microservice: [`apps/partner-api-service/README.md`](apps/partner-api-service/README.md)
-- Message Microservice: [`apps/message-api-service/README.md`](apps/message-api-service/README.md)
-
----
-
 ## ✅ Completed Features
 
 ### ✔️ Backend

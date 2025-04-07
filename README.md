@@ -20,6 +20,7 @@ It was designed to demonstrate strong software engineering skills in the context
 
 ## 🧱 System Architecture
 
+![image](https://github.com/user-attachments/assets/62c4bb70-6769-4cd4-89bf-22eca63f8de4)
 
 
 ---
@@ -101,12 +102,15 @@ docker-compose up
 
 ## 🔮 Roadmap (Future Work)
 
-- [ ] Global HTTP error handler (`ErrorHandler`)
+- [ ] Frontend Global HTTP error handler (`ErrorHandler`)
+- [ ] Add a receiveAt timestamp field to messages to track when they were received from the MQ queue.
 - [ ] HTTP action notifications via `Snackbar` (Create, Update, Delete)
-- [ ] Frontend unit tests (httpResource is not supported in Angular 19)
+- [ ] Frontend unit tests (httpResource is not yet supported in Angular 19)
 - [ ] Add an **API Gateway** to centralize backend access and frontend configuration
 - [ ] Monitoring integration (Micrometer / Prometheus)
 - [ ] Retry / dead-letter queue handling for MQ delivery
+- [ ] To improve scalability, the message listening and persistence logic could also be decoupled and moved into a dedicated microservice
+- [ ] Extract and share common logic across microservices (e.g., global error handling, WebMvc configuration) using a shared library or module.
 
 ---
 

@@ -24,4 +24,10 @@ export class PartnerApiService {
     ).subscribe();
   }
 
+  deletePartner(partner: Partner) {
+    this.httpClient.delete(`${API_URL_PARTNER}/${partner.id}`).pipe(
+      tap(() => this.partnerChanged.update(a => !a)),
+    ).subscribe();
+  }
+
 }

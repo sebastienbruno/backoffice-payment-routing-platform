@@ -8,6 +8,8 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 import { Partner } from "../models/partner.models";
 import { PartnerStore } from "../partner-store";
+import { MatButtonModule } from "@angular/material/button";
+import { PartnerApiService } from "../partner-api.service";
 
 @Component({
     styles: [],
@@ -15,13 +17,14 @@ import { PartnerStore } from "../partner-store";
     styleUrl: './partner-list.component.scss',
     selector: 'bopr-partner-list',
     imports: [
-      MatTableModule, MatSelectModule, MatDialogModule, MatIconModule, MatPaginatorModule,
+      MatTableModule, MatSelectModule, MatDialogModule, MatIconModule, MatPaginatorModule, MatButtonModule,
       FormsModule,
     ],
 })
 export class partnerListComponent {
 
     partnerStore = inject(PartnerStore);
+    parterService = inject(PartnerApiService);
     dialog = inject(MatDialog);
     paginator = viewChild.required(MatPaginator);
 
@@ -33,6 +36,7 @@ export class partnerListComponent {
       'application',
       'processedFlowType',
       'description',
+      'deleteAction',
     ];
       
     dataSource:Signal<MatTableDataSource<Partner>> = computed(() => {
@@ -40,4 +44,8 @@ export class partnerListComponent {
       dataSource.paginator = this.paginator();
       return dataSource;
     });
+
+    onDeleteAction(partner: Partner) {
+      this.parterService.deletePartner(partner);
+    }
   }

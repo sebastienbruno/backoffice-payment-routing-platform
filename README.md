@@ -41,7 +41,7 @@ It was designed to demonstrate strong software engineering skills in the context
 
 ## 🏁 Prerequisites
 
-- [Docker](https://www.docker.com/)
+- [Docker](https://www.docker.com/) installed and started
 - [Node.js](https://nodejs.org/en/) >= 18.x
 - [npm](https://www.npmjs.com/) >= 9.x
 

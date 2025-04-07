@@ -1,9 +1,9 @@
 import { HttpClient, httpResource } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
+import { map, Observable, tap } from 'rxjs';
 
 import { API_URL_PARTNER } from '../../../environments/url';
 import { CreatePartner, Partner } from './models/partner.models';
-import { tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,4 +30,9 @@ export class PartnerApiService {
     ).subscribe();
   }
 
+  aliasExists(alias: string): Observable<boolean> {
+    return this.httpClient.get<Partner[]>(`${API_URL_PARTNER}?alias=${alias}`).pipe(
+      map(result => result.length > 0)
+    );
+  }
 }

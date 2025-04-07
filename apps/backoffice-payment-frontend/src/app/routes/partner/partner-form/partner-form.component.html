@@ -7,7 +7,10 @@
         <div class="form-content">
             <mat-form-field>
                 <mat-label>Alias</mat-label>
-                <input matInput [(ngModel)]="partner.alias" name="alias" required>
+                <input #alias="ngModel" matInput [(ngModel)]="partner.alias" name="alias" required boprUniqueAlias >
+                @if (alias.invalid && alias.getError('uniqueAlias')) {
+                    <mat-error>Alias already used</mat-error>
+                }
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Type</mat-label>

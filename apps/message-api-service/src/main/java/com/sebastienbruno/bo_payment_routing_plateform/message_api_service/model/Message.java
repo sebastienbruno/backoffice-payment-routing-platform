@@ -24,7 +24,7 @@ import java.util.List;
 @Table(name = "message")
 public class Message {
   @Id
-  @SequenceGenerator(name = "message_seq", sequenceName = "message_seq", initialValue = 100, allocationSize = 1)
+  @SequenceGenerator(name = "message_seq", sequenceName = "message_seq", initialValue = 10000, allocationSize = 1)
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "message_seq")
   private Long id;
 

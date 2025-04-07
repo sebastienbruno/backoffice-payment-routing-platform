@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+
+  ibmmq:
+    image: ibmcom/mq
+    ports:
+      - "1414:1414"
+      - "9443:9443"
+    environment:
+      - LICENSE=accept
+      - MQ_QMGR_NAME=QM1
+
+  message-api-service:
+    image: ghcr.io/sebastienbruno/message-api-service:latest
+    container_name: message-api-service
+    volumes:
+      - ./volumes/h2:/data/h2
+    environment:
+      - H2_DB_PATH=/data/h2/bo-payment-routing-plateform
+      - IBM_MQ_CONN_NAME=ibmmq(1414)
+    ports:
+      - "8082:8082"
+    depends_on:
+      - ibmmq
+
+  backoffice-payment-frontend:
+    image: ghcr.io/sebastienbruno/backoffice-payment-frontend:latest
+    container_name: backoffice-payment-frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - message-api-service
+
+  partner-api-service:
+    image: ghcr.io/sebastienbruno/partner-api-service:latest
+    container_name: partner-api-service
+    volumes:
+      - ./volumes/h2:/data/h2
+    environment:
+      - H2_DB_PATH=/data/h2/bo-payment-routing-plateform-partner
+    ports:
+      - "8084:8084"

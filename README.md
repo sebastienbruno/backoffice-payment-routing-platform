@@ -49,18 +49,25 @@ It was designed to demonstrate strong software engineering skills in the context
 
 ## 🛠️ How to Run
 
+
+### 1. Clone the repository
 ```bash
-# 1. Clone the repository
 git clone https://github.com/sebastienbruno/backoffice-payment-routing-platform.git
 cd backoffice-payment-routing-platform
+```
 
-# 2. Install frontend dependencies
+### 2. Install frontend dependencies
+```bash
 npm install
+```
 
-# 3. Build Docker images
+### 3. Build Docker images
+```bash
 npx nx run-many -t docker-build
+```
 
-# 4. Start the full stack
+### 4. Start the full stack
+```bash
 docker-compose up
 ```
 

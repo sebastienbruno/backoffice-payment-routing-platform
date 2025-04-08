@@ -1,30 +1,22 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingHarness } from '@angular/router/testing';
-import { AppComponent } from './app.component';
 import { provideRouter } from '@angular/router';
 import { appRoutes } from './app.routes';
 import { MessagePageComponent } from './routes/message/message-page.component';
 import { PartnerPageComponent } from './routes/partner/partner-page.component';
-import { HeaderComponent } from './layout/header.component';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
-import { Component } from '@angular/core';
-
-@Component({selector: 'bopr-partner-page'})
-class PartnerPageStubComponent {}
-
 
 describe('AppRoot', () => {
   let harness: RouterTestingHarness;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, HeaderComponent],
+      imports: [],
       providers: [
         provideRouter(appRoutes),
         provideHttpClient(),
         provideHttpClientTesting(),
-        { provide: PartnerPageComponent, useClass: PartnerPageStubComponent },
       ],
     })
     .compileComponents();

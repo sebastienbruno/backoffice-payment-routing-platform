@@ -3,21 +3,21 @@
 <mat-dialog-content class="dialog-content">
   <div class="entry">
     <span class="label">Identifier:</span>
-    <span class="value">{{ data.id }}</span>
+    <span class="value" data-testid="entry-value">{{ data.id }}</span>
   </div>
 
   <mat-divider></mat-divider>
 
   <div class="entry">
     <span class="label">Sender:</span>
-    <span class="value">{{ data.sender }}</span>
+    <span class="value" data-testid="sender-value">{{ data.sender }}</span>
   </div>
 
   <mat-divider></mat-divider>
 
   <div class="entry">
     <span class="label">Recipients:</span>
-    <mat-chip-set>
+    <mat-chip-set data-testid="recipient-value">
       @for( recipient of data.recipients; track recipient) {
         <mat-chip color="primary" selected>
           {{ recipient }}
@@ -30,10 +30,10 @@
 
   <div class="entry">
     <span class="label">Payload:</span>
-    <pre class="payload">{{ data.payload }}</pre>
+    <pre class="payload" data-testid="payload-value">{{ data.payload }}</pre>
   </div>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
-  <button mat-flat-button mat-dialog-close>Close</button>
+  <button data-testid="close-button" mat-flat-button mat-dialog-close>Close</button>
 </mat-dialog-actions>

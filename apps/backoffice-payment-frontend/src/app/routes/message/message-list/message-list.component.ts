@@ -39,7 +39,6 @@ export class MessageListComponent {
     });
   
     onClickMessage(message: Message) {
-      console.log('view message detail', message.id)
       const messageDetailDialogRef = this.dialog.open(MessageDetailComponent, {
         height: '80%',
         width: '60%',

@@ -1,12 +1,10 @@
-import { Message } from './../models/message.models';
+import { DebugElement, signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MessageListComponent } from './message-list.component';
-import { DebugElement, Injectable, signal } from '@angular/core';
-import { MessageStore } from '../message-store';
 import { By } from '@angular/platform-browser';
-
-@Injectable({ providedIn: 'root' })
-class MessageStoreStub {}
+import { MessageListComponent } from './message-list.component';
+import { Message } from '../models/message.models';
+import { MessageStore } from '../message-store';
+import { MessageDetailComponent } from '../message-detail/message-detail.component';
 
 describe(`MessageListComponent`, () => {
   let fixture: ComponentFixture<MessageListComponent>;
@@ -53,6 +51,7 @@ describe(`MessageListComponent`, () => {
     });
     fixture = TestBed.createComponent(MessageListComponent);
     component = fixture.componentInstance;
+
     debugElement = fixture.debugElement;
     fixture.detectChanges();
   });
@@ -94,10 +93,16 @@ describe(`MessageListComponent`, () => {
   });
 
   it(`should open dialog MessageDetailComponent on message item click`, async () => {
-    const spy = jest.spyOn(component, 'onClickMessage');
+    const dialogSpyOnOpen = jest.spyOn(component.dialog, 'open');
     const row = debugElement.query(By.css('[data-testid="row-message"]'));
-    row.nativeElement.click();
+    row.triggerEventHandler('click');
     fixture.detectChanges();
-    expect(spy).toHaveBeenCalled();
+    expect(dialogSpyOnOpen).toHaveBeenCalled();
+    expect(dialogSpyOnOpen).toHaveBeenCalledWith(
+      MessageDetailComponent,
+      expect.objectContaining({
+        data: expect.any(Object),
+      })
+    )    
   });
 });

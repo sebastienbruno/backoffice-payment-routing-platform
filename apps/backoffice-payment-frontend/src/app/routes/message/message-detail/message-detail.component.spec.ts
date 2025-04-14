@@ -2,12 +2,10 @@ import { ComponentFixture, TestBed } from "@angular/core/testing"
 import { MessageDetailComponent } from "./message-detail.component"
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { By } from "@angular/platform-browser";
-import { DebugElement } from "@angular/core";
 
 describe('MessageDetailComponent', () => {
 
     let fixture: ComponentFixture<MessageDetailComponent>;
-    let component: MessageDetailComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -23,7 +21,6 @@ describe('MessageDetailComponent', () => {
         });
 
         fixture = TestBed.createComponent(MessageDetailComponent);
-        component = fixture.componentInstance;
         fixture.detectChanges();
     })
 

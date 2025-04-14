@@ -9,7 +9,7 @@
                 <mat-label>Alias</mat-label>
                 <input #alias="ngModel" matInput [(ngModel)]="partner.alias" name="alias" required boprUniqueAlias >
                 @if (alias.invalid && alias.getError('uniqueAlias')) {
-                    <mat-error>Alias already used</mat-error>
+                    <mat-error data-testid="alias-error">Alias already used</mat-error>
                 }
             </mat-form-field>
             <mat-form-field>

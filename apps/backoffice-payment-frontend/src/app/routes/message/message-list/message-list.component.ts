@@ -1,16 +1,16 @@
-import { Component, computed, inject, Signal } from "@angular/core";
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, computed, DestroyRef, inject, Signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatIconButton } from "@angular/material/button";
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { tap } from "rxjs";
+import { take, tap } from "rxjs";
 
 import { Message, MessageDetailDataDialog } from "../models/message.models";
 import { MessageStore } from "../message-store";
 import { MessageDetailComponent } from "../message-detail/message-detail.component";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
     styles: [],
@@ -26,6 +26,8 @@ export class MessageListComponent {
 
     messageStore = inject(MessageStore);
     dialog = inject(MatDialog);
+    private destroyRef = inject(DestroyRef);
+
 
     messageList = this.messageStore.messages;
     displayedColumns: string[] = [
@@ -50,7 +52,7 @@ export class MessageListComponent {
       messageDetailDialogRef.afterClosed().pipe(
         tap(() => messageDetailDialogRef.close()),
       )
-      .pipe(takeUntilDestroyed())
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe();
     }
   

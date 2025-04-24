@@ -110,7 +110,7 @@ public class PartnerController {
     URI location = ServletUriComponentsBuilder
       .fromCurrentRequest()
       .path("/{id}")
-      .buildAndExpand(created.getId())
+      .buildAndExpand(created.id())
       .toUri();
 
     return ResponseEntity.created(location).build();

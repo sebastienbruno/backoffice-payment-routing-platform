@@ -41,7 +41,7 @@ class PartnerServiceTest {
   void getPartners_shouldReturnListOfPartnerDTOs() {
     // Given
     Partner partner = new Partner();
-    PartnerDTO dto = new PartnerDTO();
+    PartnerDTO dto = PartnerDTO.builder().build();
 
     when(repository.findAll()).thenReturn(List.of(partner));
 
@@ -57,7 +57,7 @@ class PartnerServiceTest {
   void getPartnerPage_shouldReturnPage() {
     // Given
     Partner partner = new Partner();
-    PartnerDTO partnerDTO = new PartnerDTO();
+    PartnerDTO partnerDTO = PartnerDTO.builder().build();
 
     when(repository.findAll(any(Pageable.class)))
       .thenReturn(new PageImpl<>(List.of(partner)));
@@ -97,8 +97,8 @@ class PartnerServiceTest {
     PartnerDTO result = service.create(dto);
 
     // Then
-    assertThat(result.getId()).isEqualTo(42L);
-    assertThat(result.getAlias()).isEqualTo("new-alias");
+    assertThat(result.id()).isEqualTo(42L);
+    assertThat(result.alias()).isEqualTo("new-alias");
   }
 
   @Test
@@ -134,8 +134,9 @@ class PartnerServiceTest {
     // Given
     Partner partner = new Partner();
     partner.setAlias("search-by-alias");
-    PartnerDTO dto = new PartnerDTO();
-    dto.setAlias("search-by-alias");
+    PartnerDTO dto = PartnerDTO.builder()
+      .alias("search-by-alias")
+      .build();
 
     when(repository.findByAlias("search-by-alias")).thenReturn(Optional.of(partner));
 
@@ -163,9 +164,10 @@ class PartnerServiceTest {
     // Given
     Long id = 1L;
 
-    PartnerDTO dto = new PartnerDTO();
-    dto.setId(id);
-    dto.setAlias("updated-alias");
+    PartnerDTO dto = PartnerDTO.builder()
+      .id(id)
+      .alias("updated-alias")
+      .build();
 
     Partner existing = new Partner();
     existing.setId(id);
@@ -182,8 +184,8 @@ class PartnerServiceTest {
     PartnerDTO result = service.update(id, dto);
 
     // Then
-    assertThat(result.getId()).isEqualTo(id);
-    assertThat(result.getAlias()).isEqualTo("updated-alias");
+    assertThat(result.id()).isEqualTo(id);
+    assertThat(result.alias()).isEqualTo("updated-alias");
   }
 
   @Test
@@ -192,7 +194,7 @@ class PartnerServiceTest {
     when(repository.findById(1L)).thenReturn(Optional.empty());
 
     // When + Then
-    assertThatThrownBy(() -> service.update(1L, new PartnerDTO()))
+    assertThatThrownBy(() -> service.update(1L, PartnerDTO.builder().build()))
       .isInstanceOf(ResourceNotFoundException.class);
   }
 

@@ -1,4 +1,4 @@
-import { Component, inject } from "@angular/core";
+import { Component, DestroyRef, inject } from "@angular/core";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
@@ -47,6 +47,8 @@ export class PartnerPageComponent {
 
     dialog = inject(MatDialog);
     partnerService = inject(PartnerApiService);
+    private destroyRef = inject(DestroyRef);
+
 
     onCreateAction() {
         const dialogRef = this.dialog.open(PartnerFormComponent, {
@@ -60,7 +62,7 @@ export class PartnerPageComponent {
                 }
             })
         )
-        .pipe(takeUntilDestroyed())
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe();
     }
 }

@@ -10,9 +10,6 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Builder
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
 @Schema(
   description = "Data Transfer Object for a message",
   example = """
@@ -24,17 +21,17 @@ import java.util.List;
     }
   """
 )
-public class MessageDTO {
+public record MessageDTO (
 
   @Schema(description = "Unique identifier of the message", example = "123")
-  private Long id;
+  Long id,
 
   @Schema(description = "Name of the sender application", example = "backoffice-app")
-  private String sender;
+  String sender,
 
   @Schema(description = "List of message recipients", example = "[\"partner-a\", \"partner-b\"]")
-  private List<@NotBlank String> recipients;
+  List<@NotBlank String> recipients,
 
   @Schema(description = "Payload content of the message", example = "ALERT|LEVEL:HIGH|TIMESTAMP:2025-04-02T11:30:00")
-  private String payload;
-}
+  String payload
+) { }

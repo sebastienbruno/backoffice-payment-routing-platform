@@ -53,7 +53,7 @@ class MessageServiceTest {
 
     // Then
     assertEquals(1, result.getTotalElements());
-    assertEquals("sender-app", result.getContent().get(0).getSender());
+    assertEquals("sender-app", result.getContent().get(0).sender());
   }
 
   @Test

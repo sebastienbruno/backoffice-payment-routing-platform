@@ -10,6 +10,7 @@ import { tap } from "rxjs";
 import { Message, MessageDetailDataDialog } from "../models/message.models";
 import { MessageStore } from "../message-store";
 import { MessageDetailComponent } from "../message-detail/message-detail.component";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
     styles: [],
@@ -48,7 +49,9 @@ export class MessageListComponent {
       }); 
       messageDetailDialogRef.afterClosed().pipe(
         tap(() => messageDetailDialogRef.close()),
-      ).subscribe();
+      )
+      .pipe(takeUntilDestroyed())
+      .subscribe();
     }
   
     onChangeSize() {

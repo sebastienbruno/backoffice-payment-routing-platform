@@ -1,6 +1,7 @@
 import { Component, inject } from "@angular/core";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { tap } from "rxjs";
 
 import { PartnerFormComponent } from "./partner-form/partner-form.component";
@@ -55,10 +56,11 @@ export class PartnerPageComponent {
         dialogRef.afterClosed().pipe(
             tap((createPartner: CreatePartner) => {
                 if(createPartner) {
-                    console.log('reason', createPartner);
                     this.partnerService.createPartner(createPartner)
                 }
             })
-        ).subscribe();
+        )
+        .pipe(takeUntilDestroyed())
+        .subscribe();
     }
 }

@@ -1,6 +1,6 @@
 import { HttpClient, httpResource } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { map, Observable, take, tap } from 'rxjs';
 
 import { API_URL_PARTNER } from '../../../environments/url';
 import { CreatePartner, Partner } from './models/partner.models';
@@ -19,13 +19,17 @@ export class PartnerApiService {
   createPartner(createPartner: CreatePartner) {
     this.httpClient.post(API_URL_PARTNER, createPartner).pipe(
       tap(() => this.partnersResource.reload()),
-    ).subscribe();
+    )
+    .pipe(take(1))
+    .subscribe();
   }
 
   deletePartner(partner: Partner) {
     this.httpClient.delete(`${API_URL_PARTNER}/${partner.id}`).pipe(
       tap(() => this.partnersResource.reload()),
-    ).subscribe();
+    )
+    .pipe(take(1))
+    .subscribe();
   }
 
   aliasExists(alias: string): Observable<boolean> {

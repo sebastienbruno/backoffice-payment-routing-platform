@@ -5,7 +5,7 @@ import com.sebastienbruno.bo_payment_routing_plateform.message_api_service.dto.M
 import com.sebastienbruno.bo_payment_routing_plateform.message_api_service.mapper.MessageMapper;
 import com.sebastienbruno.bo_payment_routing_plateform.message_api_service.model.Message;
 import com.sebastienbruno.bo_payment_routing_plateform.message_api_service.repository.MessageRepository;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-@Log4j2
+@Slf4j
 public class MessageService {
 
     private final MessageRepository repository;

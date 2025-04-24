@@ -6,7 +6,7 @@ import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.excep
 import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.mapper.PartnerMapper;
 import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.model.Partner;
 import com.sebastienbruno.bo_payment_routing_plateform.partner_api_service.repository.PartnerRepository;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Log4j2
+@Slf4j
 public class PartnerService {
 
   private final PartnerRepository repository;

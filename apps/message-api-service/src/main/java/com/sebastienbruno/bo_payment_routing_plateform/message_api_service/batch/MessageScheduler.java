@@ -2,7 +2,7 @@ package com.sebastienbruno.bo_payment_routing_plateform.message_api_service.batc
 
 import com.sebastienbruno.bo_payment_routing_plateform.message_api_service.config.JmsConfig;
 import com.sebastienbruno.bo_payment_routing_plateform.message_api_service.dto.CreateMessageDTO;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 
-@Log4j2
+@Slf4j
 @Component
 public class MessageScheduler {
 

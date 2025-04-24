@@ -4,7 +4,7 @@ import com.sebastienbruno.bo_payment_routing_plateform.message_api_service.confi
 import com.sebastienbruno.bo_payment_routing_plateform.message_api_service.dto.CreateMessageDTO;
 import com.sebastienbruno.bo_payment_routing_plateform.message_api_service.dto.MessageDTO;
 import com.sebastienbruno.bo_payment_routing_plateform.message_api_service.service.MessageService;
-import lombok.extern.log4j.Log4j2;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@Log4j2
+@Slf4j
 class MessageControllerTest {
 
   private MessageService messageService;

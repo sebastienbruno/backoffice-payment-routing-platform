@@ -166,6 +166,10 @@ class PartnerControllerTest {
     PartnerDTO dto = PartnerDTO.builder()
       .id(1L)
       .alias("updated-alias")
+      .type("external")
+      .description("Updated partner")
+      .processedFlowType(ProcessedFlowType.MESSAGE)
+      .direction(Direction.INBOUND)
       .build();
 
     // When
